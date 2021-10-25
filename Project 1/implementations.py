@@ -33,7 +33,7 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma, loss_function = mse, g
         n = np.random.randint(0, N-1)  
         xn = tx[n]
         # compute gradient
-        grad = calc_gradient(y, xn, w)
+        grad = gradient(y, xn, w)
         # compute and update y
         w = w - gamma * grad
         

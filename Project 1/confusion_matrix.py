@@ -8,6 +8,6 @@ def compute_confusion_matrix(true, pred):
   result = np.zeros((K, K))
 
   for i in range(len(true)):
-    result[true[i]][pred[i]] += 1
+    result[int(true[i])][int(pred[i])] += 1
 
   return result
