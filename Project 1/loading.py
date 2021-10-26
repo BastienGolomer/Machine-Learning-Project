@@ -6,15 +6,14 @@ def load_csv_data(path_data):
     y = np.genfromtxt(path_data, delimiter = ",", skip_header = 1, dtype = str, usecols = 1)
     x = np.genfromtxt(path_data, delimiter = ",", skip_header = 1)
     labels = np.genfromtxt(path_data, delimiter = ",", skip_footer = (250000), dtype = str)
-    ids = np.genfromtxt(path_data, delimiter = ',', skip_header = 1, dtype = int, usecols = 0)
     
-    input_data = x[:, 2:]
+    input_data = np.delete(x, 1, axis = 1)
     
     # y has class labels, we convert them to 1 or 0 to be able to manipulate them in an easier way.
     yb = np.ones(len(y))
     yb[np.where(y == 'b')] = 0
     
-    return yb, input_data, labels, ids
+    return yb, input_data, labels
 
 def write_csv(ids, predictions, name_csv):
 ### Creates an output submission in a csv file to AICrowd
