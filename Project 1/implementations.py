@@ -37,7 +37,7 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma, loss_function = mse, g
         # compute and update y
         w = w - gamma * grad
         
-    loss = compute_loss(y, xn, w)       
+    loss = loss_function(y, xn, w)       
     return w, loss
 
 # Ridge regression using normal equations :
@@ -50,7 +50,7 @@ def ridge_regression(y, tx, lambda_, loss_function = mse):
 
 # Logistic regression using gradient descent or SGD :
 def logistic_regression(y, tx, initial_w, max_iters, gamma):
-    return least_squares_SGD(y, tx, initial_w, max_iters, gamma, loss_function = log_loss, gradient = log_gradient)
+    return least_squares_SGD(y, tx, initial_w, max_iters, gamma, loss_function =log_loss, gradient = log_gradient)
 
 # Regularized logistic regression using gradient descent or SGD :
 def reg_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
