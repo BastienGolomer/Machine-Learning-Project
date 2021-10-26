@@ -6,13 +6,13 @@ import loading as ld
 import implementations as imp
 import confusion_matrix as conf
 
-ids_csv = np.linspace(35000,568240, 218240)
+ids_csv = np.linspace(350000,918237, 568238)
 
 
 # load the data using our own method
 y_train, X_train, ids_train = ld.load_csv_data('./train.csv')
 np.delete(ids_train,[0,1]) # to keep the relevant headers for the features in X
-y_test, X_test, ids_test = ld.load_csv_data('./train.csv')
+y_test, X_test, ids_test = ld.load_csv_data('../test.csv')
 np.delete(ids_test,[0,1]) # to keep the relevant headers for the features in X
 
 
@@ -38,8 +38,6 @@ for i in range (0,len(yhat)):
     else:
          yhat[i]= -1
 ld.write_csv(ids_csv, yhat, 'LeastSquare.csv')
-
-
 
 
 
