@@ -37,7 +37,7 @@ for i in range (0,len(yhat)):
         yhat[i]= 1
     else:
          yhat[i]= -1
-write_csv(ids_csv, yhat, 'LeastSquare.csv')
+ld.write_csv(ids_csv, yhat, 'LeastSquare.csv')
 
 
 
@@ -51,7 +51,7 @@ for i in range (0,len(yhat)):
         yhat[i]= 1
     else:
          yhat[i]= -1
-write_csv(ids_csv, yhat, 'LeastSquareGD.csv')
+ld.write_csv(ids_csv, yhat, 'LeastSquareGD.csv')
 
 
 
@@ -63,7 +63,7 @@ for i in range (0,len(yhat)):
         yhat[i]= 1
     else:
          yhat[i]= -1
-write_csv(ids_csv, yhat, 'LeastSquareSGD.csv')
+ld.write_csv(ids_csv, yhat, 'LeastSquareSGD.csv')
 
 
 # ridge regression
@@ -74,7 +74,7 @@ for i in range (0,len(yhat)):
         yhat[i]= 1
     else:
          yhat[i]= -1
-write_csv(ids_csv, yhat, 'RidgeRegression.csv')
+ld.write_csv(ids_csv, yhat, 'RidgeRegression.csv')
 
 
 # logistic regression
@@ -85,7 +85,7 @@ for i in range (0,len(yhat)):
         yhat[i]= 1
     else:
          yhat[i]= -1
-write_csv(ids_csv, yhat, 'LogisticRegression.csv')
+ld.write_csv(ids_csv, yhat, 'LogisticRegression.csv')
 
 
 # regularised locistic regression
@@ -97,4 +97,4 @@ for i in range (0,len(yhat)):
     else:
          yhat[i]= -1
 
-write_csv(ids_csv, yhat, 'RegLogisticRegression.csv')
+ld.write_csv(ids_csv, yhat, 'RegLogisticRegression.csv')
