@@ -20,4 +20,10 @@ def calc_gradient_sigm(y, tx, w):
     e = sigmoid(tx.dot(w)) - y
     grad = tx.T.dot(e)/len(e)
     return grad
+
+# Stochastic gradient
+def calc_stoch_gradient(y, tx, w):
+    e = y - tx.dot(w)
+    grad = -tx.T.dot(e)
+    return grad
   

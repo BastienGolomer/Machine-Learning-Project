@@ -8,17 +8,17 @@ def sigmoid(x):
 
 # Mean-squared error
 def mse(y, tx, w):
-  e = y - tx.dot(w) # compute the error vector
-  return np.mean(e**2)/2
+    e = y - tx.dot(w) # compute the error vector
+    return np.mean(e**2)/2
 
 # Mean-absolute error
 def mae(y, tx, w):
-  e = y - tx.dot(w) # compute the error vector
-  return np.mean(np.abs(e))
+    e = y - tx.dot(w) # compute the error vector
+    return np.mean(np.abs(e))
 
 # Root mean-squared error
 def rmse(y, tx, w):
-  return np.sqrt(mse(y, tx, w))
+    return np.sqrt(mse(y, tx, w))
 
 # Logistic loss
 def log_loss(y, tx, w):
