@@ -1,4 +1,5 @@
 import numpy as np
+import csv
 
 # Creates a function that loads the data, and outputs y (the class labels), tx (the features), and the ids
 def load_csv_data(path_data):
@@ -16,12 +17,12 @@ def load_csv_data(path_data):
 
 def write_csv(ids, predictions, name_csv):
 ### Creates an output submission in a csv file to AICrowd
-'''ids : id of the event of the associated prediction
-   predictions : class label of the variable y 
-   name_csv : name of the csv file in which we write our results '''
-    with open(name, newline = ' ') as csvfile:
+    '''ids : id of the event of the associated prediction
+    predictions : class label of the variable y 
+    name_csv : name of the csv file in which we write our results '''
+    with open(name_csv, newline = ' ') as csvfile:
         names = ["Id", "Prediction"]
         writer = csv.DictWriter(csvfile, delimiter = ' ', fieldnames = names)
         writer.writeheader()
-        for x, y in ids, prediction:
+        for x, y in ids, predictions:
             writer.writerow({"Id" : int(x), "Prediction" : int(predictions)})
