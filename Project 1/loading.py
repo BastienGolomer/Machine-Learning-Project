@@ -5,7 +5,7 @@ import csv
 def load_csv_data(path_data):
     y = np.genfromtxt(path_data, delimiter = ",", skip_header=1, dtype = str, usecols = 1)
     x = np.genfromtxt(path_data, delimiter = ",", skip_header=1)
-    ids = np.genfromtxt(path_data, delimiter = ",", skip_footer=(250000), dtype= str)
+    labels = np.genfromtxt(path_data, delimiter = ",", skip_footer=(250000), dtype= str)
     
     input_data = x[:, 2:]
     
@@ -13,16 +13,16 @@ def load_csv_data(path_data):
     yb = np.ones(len(y))
     yb[np.where(y == 'b')] = 0
     
-    return yb, input_data, ids
+    return yb, input_data, labels
 
 def write_csv(ids, predictions, name_csv):
 ### Creates an output submission in a csv file to AICrowd
     '''ids : id of the event of the associated prediction
     predictions : class label of the variable y 
     name_csv : name of the csv file in which we write our results '''
-    with open(name_csv, newline = ' ') as csvfile:
+    with open(name_csv, 'w',newline = '') as csvfile:
         names = ["Id", "Prediction"]
-        writer = csv.DictWriter(csvfile, delimiter = ' ', fieldnames = names)
+        writer = csv.DictWriter(csvfile, delimiter = ',', fieldnames = names)
         writer.writeheader()
-        for x, y in ids, predictions:
-            writer.writerow({"Id" : int(x), "Prediction" : int(predictions)})
+        for x, y in zip(ids, predictions):
+            writer.writerow({"Id" : int(x), "Prediction" : int(y)})

@@ -1,0 +1,19 @@
+DER_mass_MMC : -99 souvent un background (majorité). Undefined when the topology of the event is to far from the expected topology
+
+DER_mass_transverse_met_lep : never -999
+DER_mass_vis : never -999
+DER_pt_h : nerver -999
+
+DER_deltaeta_jet_jet  : -999 only when 0 or 1 jet
+DER_mass_jet_jet : idem
+DER_prodeta_jet_jet : idem
+DER_deltar_tau_lep : never -999
+
+DER_pt_tot : never -999, dependant of PRI_jet_num
+DER_sum_pt : never -999, idem
+
+DER_pt_ratio_lep_tau : never -999, independant
+
+DER_met_phi_centrality : never -999, independant
+
+DER_lep_eta_centrality : need at least 2 jets : 
