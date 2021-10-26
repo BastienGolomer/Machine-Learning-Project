@@ -10,10 +10,9 @@ def calc_gradient(y, tx, w):
     return grad
   
 # Logistic gradient
-def log_gradient(y, tx, w, lambda_ = 0):
-    w[0] = np.sum(sigmoid(tx.dot(w)) - y)*(tx[0])
-    w[1:] = np.sum(sigmoid(tx[1:].dot(w[1:])) - y) * tx[1:] + lambda_/len(w[1:]) * w[1:]
-    return w
+def log_gradient(y, tx, w):
+    b = sigmoid(tx.dot(w)) - y
+    return tx.T.dot(b)
   
 # Sigmoid gradient
 def calc_gradient_sigm(y, tx, w):
@@ -24,6 +23,5 @@ def calc_gradient_sigm(y, tx, w):
 # Stochastic gradient
 def calc_stoch_gradient(y, tx, w):
     e = y - tx.dot(w)
-    grad = -tx.T.dot(e)
+    grad = - tx.T.dot(e)
     return grad
-  
