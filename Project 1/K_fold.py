@@ -27,10 +27,9 @@ def K_fold_split(K, train, y):
         Y_train.append(ytemp[1:])    
     return X_train,Y_train,X_validate,Y_validate
 
-def K_fold():
-    y, X, labels = ld.load_csv_data('./train.csv')
-    trainx,trainy,valx,valy=K_fold_split(8,X[1:5000,:],y[1:5000])
-
+def K_fold(y,X):
+    #y, X, labels = ld.load_csv_data('./train.csv')
+    trainx,trainy,valx,valy=K_fold_split(8,X,y)
     w=[]
     losses=[]
     for i in range (0,8):
