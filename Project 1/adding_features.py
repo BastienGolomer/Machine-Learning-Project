@@ -28,4 +28,3 @@ def add_features(X, degree):
             
     
     return np.concatenate(to_concatenate, axis=1)
-											 
