@@ -1,12 +1,13 @@
 import numpy as np
 import loading as ld
+from implementations import *
 
-def K_fold(K, train, y):
+def K_fold_split(K, train, y):
     len_valid=len(train)/K
-    print(y)
+    #print(y)
     pieces=np.array_split(train, K, axis=0)
     ypieces=np.array_split(y, K)
-    X_train=np.zeros([2,len(train[0,:])])
+    X_train=[]
     Y_train=[]
     X_validate=[]
     Y_validate=[]
@@ -22,15 +23,28 @@ def K_fold(K, train, y):
                 ytemp=np.concatenate((ytemp,ypieces[j]), axis= None)
         #print(temp[1,:])
         #print(X_train)
-        X_train=np.r_[X_train,temp[1:,:]]
-        Y_train=np.append(Y_train,ytemp[1:])    
-    return X_train[2:,:],Y_train,X_validate,Y_validate
+        X_train.append(temp[1:,:])
+        Y_train.append(ytemp[1:])    
+    return X_train,Y_train,X_validate,Y_validate
 
-def main():
-    y, X, labels, ids = ld.load_csv_data('./train.csv')
-    trainx,trainy,valx,valy=K_fold(8,X[1:5000,:],y[1:5000])
-    print (len(trainx))
-    print (trainy)
-        
+def K_fold():
+    y, X, labels = ld.load_csv_data('./train.csv')
+    trainx,trainy,valx,valy=K_fold_split(8,X[1:5000,:],y[1:5000])
+
+    w=[]
+    losses=[]
+    for i in range (0,8):
+        temp=least_squares(trainy[i],trainx[i])
+        #print(trainx)
+        w.append(temp[0])
+        losses.append(temp[1])
+    loss=1/8*sum(losses)
+    #print ((w[0]))
+    w=np.array(w)
+    wtemp=[]
+    for i in range(0,len(w[0,:])):
+        wtemp.append(1/8*sum(w[:,i]))
+    print(wtemp)
+    return wtemp, loss
+
     
-main()
