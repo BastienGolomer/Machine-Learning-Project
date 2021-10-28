@@ -26,3 +26,27 @@ def write_csv(ids, predictions, name_csv):
         writer.writeheader()
         for x, y in zip(ids, predictions):
             writer.writerow({"Id" : int(x), "Prediction" : int(y)})
+
+
+
+def update_dataframe_median (X) : 
+    dataframe = X.copy()
+    n = dataframe.shape[1]-1
+    todelete = []
+    for i in range(n) :
+        column = dataframe[:,i]
+        Median = np.median(column)
+
+        if Median == -999 :
+            todelete.append(i)
+            continue 
+        else :
+            mask = np.where(dataframe[:,i] == -999 )
+            for j in mask :
+                dataframe[j,i] = Median
+
+    dataframe = np.delete(dataframe, todelete, axis = 1)
+
+    return dataframe
+
+        
