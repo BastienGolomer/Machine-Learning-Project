@@ -3,7 +3,7 @@ from loss_functions import *
 from grad_functions import *
 
 ## REGRESSION FUNCTIONS
-
+    
 # Least squares regression, using normal equations :
 def least_squares(y, tx, loss_function = mse):
     a = tx.T.dot(tx)
@@ -19,6 +19,8 @@ def least_square_GD(y, tx, initial_w, max_iters, gamma, loss_function = mse, gra
         # compute gradient
         grad = gradient(y, tx, w)       
         # compute and update w :
+        #print(w)
+        #print(grad)
         w = w - gamma * grad
       
     loss = loss_function(y, tx, w)

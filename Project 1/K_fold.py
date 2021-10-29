@@ -30,7 +30,7 @@ def K_fold(y,X):
     losses=[]
     #valx=np.array(valx)
     for i in range (0,8):
-        temp=ridge_regression(trainy[i],trainx[i],0.4)
+        temp=logistic_regression(trainy[i],trainx[i],np.zeros(len(trainx[i][0,:])),0.7,50,2.5)
         w.append(temp[0])
         losses.append(mse(valy[i],valx[i],temp[0]))
     loss=1/8*sum(losses)
