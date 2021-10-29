@@ -55,6 +55,7 @@ def split():
     loss=1/4*(PRI0[1]+PRI1[1]+PRI2[1]+PRI3[1])
     #permet d'avoir la moyenne des arguments mais pas reelement utile car il n'y a jamais le meme nombre d'arg et dependant de PRI_jet_num
     print(len(yhat_test))
+    ld.write_csv(yhat_test[:,0], yhat_test[:,1],'split_PRI_jet_num.csv')
     return loss, yhat_test
 
 
