@@ -14,7 +14,6 @@ def split():
     #test_x=np.c_[a,test_X]
     # Data processing : getting rid of the columns which have "-999" values
     new_X = X.copy()
-    print(new_X.shape,test_X.shape)
     # the variable PRI_jet_num seems quite central, as many other variables depend on it
     # here the data is separated following this fact
     #train
@@ -59,7 +58,6 @@ def traitements_test_set(i, test_X,w):
     wtest=[]
     wtest.extend(w)
     yshapoaud=PRI_test.dot(wtest)
-    #print(type(PRI_test[:,0]),type(yshapoaud))
     yshapoaud=np.c_[PRI_test[:,0],yshapoaud]
     return yshapoaud
 
@@ -67,7 +65,6 @@ def traitements_test_set(i, test_X,w):
 def splity_split_yo(new_X,i):
     PRI_jet_num = new_X[:][new_X[:,-8] == i]
     PRI_jet_num=ld.update_dataframe_median(PRI_jet_num)
-    #print(PRI_jet_num[:][1])
     PRI_jet_num=ld.standardize_mat(PRI_jet_num)
     #new_PRI_jet_num_0 = PRI_jet_num_0.copy()
     #new_PRI_jet_num_0 = np.delete(new_PRI_jet_num_0, np.where(new_PRI_jet_num_0 == -999)[1], axis=1)

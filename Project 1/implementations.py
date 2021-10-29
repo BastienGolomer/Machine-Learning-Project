@@ -49,7 +49,6 @@ def ridge_regression(y, tx, lambda_, loss_function = mse):
     aI = 2 * tx.shape[0] * lambda_ * np.identity(tx.shape[1])
     a = tx.T.dot(tx) + aI
     b = tx.T.dot(y)
-    #print("ridge",a,b,"pu")
     w = np.linalg.solve(a, b)
     return w, loss_function(y, tx, w)
 

@@ -7,7 +7,6 @@ from loss_functions import *
 def calc_gradient(y, tx, w):
     e = y - tx.dot(w)
     grad = -tx.T.dot(e)/len(e)
-    print(grad)
     return grad
   
 # Logistic gradient
