@@ -49,4 +49,7 @@ def update_dataframe_median (X) :
 
     return dataframe
 
+def standardize_mat(A):
+    return (A - np.mean(A, axis=0))/np.std(A, axis=0)
+
         
