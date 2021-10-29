@@ -6,7 +6,7 @@ import numpy as np
 ## expands the array X to the given degree
 def build_poly(x, degree):
     """polynomial basis functions for input data x, for j=0 up to j=degree - 
-        using the method implemented in lab 2 """
+        using the method implemented in lab 3 """
     
     poly = np.ones((len(x), 1))
     for deg in range(1, degree+1):
