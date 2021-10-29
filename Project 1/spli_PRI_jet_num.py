@@ -34,23 +34,27 @@ def split():
     ychap2=traitements_test_set(2,test_X,PRI2[0])
     ychap3=traitements_test_set(3,test_X,PRI3[0])
     #merge the prediction and put them back in their original order
-    yhat=[ychap0]
+    yhat=list(ychap0)
     yhat.extend(ychap1)
     yhat.extend(ychap2)
     yhat.extend(ychap3)
-    for i in range (0,len(yhat[:][0][:,0])):
-        yhat[:][0][i,0]=int(yhat[:][0][i,0])
-        if yhat[:][0][i,1]>0:
-            yhat[:][0][i,1]= 1
-        else:
-            yhat[:][0][i,1]= -1
+    yhat=np.array(yhat)
+    print(type(yhat))#list
+    print(yhat.shape)
+    print(type(yhat[1]))#np.array
+    print(type(yhat[0][1]))#float
+    A=yhat[:,0].astype(int)
+    print(A)
+    B=np.where(yhat[:,1]<0,-1,1)
+    yhat=np.array([A,B])
+    yhat=yhat.T
     #yhat=np.array(yhat)
-    print(yhat[:][0][:,0])
-    y_hat_test=yhat[:][0][yhat[:][0][:,0]].sort(axis = 0)
+    
+    yhat_test=yhat[yhat[:,0].argsort(0)]
     #compute mean loss on train
     loss=1/4*(PRI0[1]+PRI1[1]+PRI2[1]+PRI3[1])
     #permet d'avoir la moyenne des arguments mais pas reelement utile car il n'y a jamais le meme nombre d'arg et dependant de PRI_jet_num
-
+    print(len(yhat_test))
     return loss, yhat_test
 
 
