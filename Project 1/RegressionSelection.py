@@ -4,10 +4,8 @@ import implementations as imp
 
 
 def RegressionSelection(csv_filepath) :
+    ''' This function allows to find which regression is the most appropriate for the data set studied'''
     methods = ['LeastSquare', 'LeastSquareGD', 'LeastSquareSGD', 'RidgeRegression', 'LogisticRegression', 'RegLogisticRegression'  ]
-    evals = ['imp.least_squares(y_train,X_train)', 'imp.least_square_GD(y_train,X_train,np.ones(n),100,0.8)', 'imp.least_squares_SGD(y_train,X_train,np.ones(n),100,0.3)', 
-             'imp.ridge_regression(y_train,X_train,0.5)', 'imp.logistic_regression(y_train,X_train,np.ones(n),100,0.1)', 'imp.reg_logistic_regression(y_train,X_train,0.1,np.ones(n),100,0.1)'   ]
-
 
     # load the data using our own method + Data processing Training Set: getting rid of the columns which have "-999" values
     y, X, labels = ld.load_csv_data(csv_filepath)
@@ -29,6 +27,12 @@ def RegressionSelection(csv_filepath) :
     worstcount = 6e6
     bestyhat = []
     bestW = []
+
+    gamma = 0.8
+    evals = ['imp.least_squares(y_train,X_train)', 'imp.least_square_GD(y_train,X_train,np.ones(n),100,gamma)', 'imp.least_squares_SGD(y_train,X_train,np.ones(n),100,0.3)', 
+             'imp.ridge_regression(y_train,X_train,0.5)', 'imp.logistic_regression(y_train,X_train,np.ones(n),100,0.1)', 'imp.reg_logistic_regression(y_train,X_train,0.1,np.ones(n),100,0.1)'   ]
+
+
 
     for j in range(len(methods)-1):
         w=eval(evals[j])
