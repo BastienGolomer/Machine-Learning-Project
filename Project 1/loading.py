@@ -45,10 +45,8 @@ def update_dataframe_median (X) :
             mask = np.where(dataframe[:,i] == -999 )
             for j in mask :
                 dataframe[j,i] = Median
-
     dataframe = np.delete(dataframe, todelete, axis = 1)
-    
-    dataframe=(dataframe - np.mean(dataframe, axis=0))/np.std(dataframe,axis=0) 
+    dataframe[:,1:]=(dataframe[:,1:] - np.mean(dataframe[:,1:], axis=0))/np.std(dataframe[:,1:],axis=0) 
     return dataframe
 
 

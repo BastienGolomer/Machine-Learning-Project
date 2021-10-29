@@ -30,7 +30,8 @@ def K_fold(y,X):
     losses=[]
     #valx=np.array(valx)
     for i in range (0,8):
-        temp=ridge_regression(trainy[i],trainx[i],0.3)
+        temp=ridge_regression(trainy[i],trainx[i],1.1)
+
         w.append(temp[0])
         losses.append(mse(valy[i],valx[i],temp[0]))
     loss=1/8*sum(losses)
@@ -38,7 +39,9 @@ def K_fold(y,X):
     wtemp=[]
     for i in range(0,len(w[0,:])):
         wtemp.append(1/8*sum(w[:,i]))
-    print(len(wtemp))
     return [wtemp, loss]
-
+#ridge :0.16899386241189956 gamma=1.1
+#least square 0.17846086928048066
+#logistic_regression ~2.07 200 iter et gamma~0.1
+#reg_log gamma 0.00001 lambda_ 0.4 iter 50
     

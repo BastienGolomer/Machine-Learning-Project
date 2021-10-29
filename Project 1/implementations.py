@@ -19,8 +19,6 @@ def least_square_GD(y, tx, initial_w, max_iters, gamma, loss_function = mse, gra
         # compute gradient
         grad = gradient(y, tx, w)       
         # compute and update w :
-        #print(w)
-        #print(grad)
         w = w - gamma * grad
       
     loss = loss_function(y, tx, w)
