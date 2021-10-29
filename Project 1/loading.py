@@ -31,13 +31,14 @@ def write_csv(ids, predictions, name_csv):
 
 def update_dataframe_median (X) : 
     dataframe = X.copy()
-    n = dataframe.shape[1]-1
+    n = dataframe.shape[1]
     todelete = []
     for i in range(n) :
         column = dataframe[:,i]
         Median = np.median(column)
+        stand_dev = np.std(column)
 
-        if Median == -999 :
+        if stand_dev == 0 :
             todelete.append(i)
             continue 
         else :
@@ -46,10 +47,8 @@ def update_dataframe_median (X) :
                 dataframe[j,i] = Median
 
     dataframe = np.delete(dataframe, todelete, axis = 1)
-
+    
+    dataframe=(dataframe - np.mean(dataframe, axis=0))/np.std(dataframe,axis=0) 
     return dataframe
 
-def standardize_mat(A):
-    return (A - np.mean(A, axis=0))/np.std(A, axis=0)
 
-        

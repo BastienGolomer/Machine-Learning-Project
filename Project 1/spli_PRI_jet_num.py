@@ -25,6 +25,7 @@ def split():
     
     #print(new_PRI_jet_num_0[:,0].shape, new_PRI_jet_num_0[:,1:].shape)
     PRI0=K_fold(new_PRI_jet_num_0[:,0],new_PRI_jet_num_0[:,1:])
+    print (X,y,"xy ")
     PRI1=K_fold(new_PRI_jet_num_1[:,0],new_PRI_jet_num_1[:,1:])
     PRI2=K_fold(new_PRI_jet_num_2[:,0],new_PRI_jet_num_2[:,1:])
     PRI3=K_fold(new_PRI_jet_num_3[:,0],new_PRI_jet_num_3[:,1:])
@@ -61,9 +62,13 @@ def traitements_test_set(i, test_X,w):
     #print(type(PRI_test[:,0]),type(yshapoaud))
     yshapoaud=np.c_[PRI_test[:,0],yshapoaud]
     return yshapoaud
+
+
 def splity_split_yo(new_X,i):
     PRI_jet_num = new_X[:][new_X[:,-8] == i]
     PRI_jet_num=ld.update_dataframe_median(PRI_jet_num)
+    #print(PRI_jet_num[:][1])
+    PRI_jet_num=ld.standardize_mat(PRI_jet_num)
     #new_PRI_jet_num_0 = PRI_jet_num_0.copy()
     #new_PRI_jet_num_0 = np.delete(new_PRI_jet_num_0, np.where(new_PRI_jet_num_0 == -999)[1], axis=1)
     return PRI_jet_num

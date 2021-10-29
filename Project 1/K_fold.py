@@ -25,19 +25,22 @@ def K_fold_split(K, train, y):
     return X_train,Y_train,X_validate,Y_validate
 
 def K_fold(y,X):
+    print (X,y,"xy ")
     trainx,trainy,valx,valy=K_fold_split(8,X,y)
     w=[]
     losses=[]
     #valx=np.array(valx)
     for i in range (0,8):
-        temp=logistic_regression(trainy[i],trainx[i],np.zeros(len(trainx[i][0,:])),0.7,50,2.5)
+        temp=ridge_regression(trainy[i],trainx[i],0.3)
         w.append(temp[0])
         losses.append(mse(valy[i],valx[i],temp[0]))
     loss=1/8*sum(losses)
+    #print("w",w)
     w=np.array(w)
     wtemp=[]
     for i in range(0,len(w[0,:])):
         wtemp.append(1/8*sum(w[:,i]))
+    print(len(wtemp))
     return [wtemp, loss]
 
     
