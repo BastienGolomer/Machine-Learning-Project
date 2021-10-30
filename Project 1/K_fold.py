@@ -3,9 +3,20 @@ import loading as ld
 from implementations import *
 from loss_functions import *
 
-#get X and y from a train set that is not split in a validation set, as well as the parameter K to do a k-fold validation
-#the function split the data in datasets useable for the K-fold 
+
+#
 def K_fold_split(X, y, K):
+    ''' 
+    Inputs = 
+    - X : array of features
+    - y : array of response variables
+    - K : number of subsets desired for the K-fold
+    Outputs = 
+    - X_train,Y_train,X_validate,Y_validate : subsets used for the k fold
+
+    This function splits the data in datasets useable for the K-fold  
+    get X and y from a train set that is not split in a validation set, as well as the parameter K to do a k-fold validation'''
+
     #split X and y into K pieces
     pieces=np.array_split(X, K, axis=0)
     ypieces=np.array_split(y, K)
@@ -33,9 +44,19 @@ def K_fold_split(X, y, K):
     #4 list are returned, each of them of length K, and the 4 elements[k] of the lists are to be trained and validated together
     return X_train,Y_train,X_validate,Y_validate
 
-#get X and y from a train set that is not split in a validation set, as well as the parameter K to do a k-fold validation
-#the function calls upon K_fold_split to get data in the right shape and perform the K-fold 
+
 def K_fold(X, y, K = 8):
+    ''' 
+    Inputs = 
+    - X : array of features
+    - y : array of response variables
+    - K : number of subsets desired for the K-fold
+    Outputs = 
+    - [wtemp, loss] : weights and loss computed with the K-fold
+
+    This function get X and y from a train set that is not split in a validation set, as well as the parameter K to do a k-fold validation
+    The function calls upon K_fold_split to get data in the right shape and perform the K-fold '''
+
     #gets data from K_Fold_split
     trainx,trainy,valx,valy=K_fold_split(X, y, K)
     w=[]
@@ -63,6 +84,12 @@ def K_fold(X, y, K = 8):
 
 #run K fold directly from this file    
 def run_K_fold(K):
+    '''Input = K : number of subsets asked for the K-fold
+    Output = creates a csv file using write_csv file (see the documentation on the latter) 
+    
+    This function performs a K-fold on the train test to directly validate on the test set.
+    Before it calls functions K_fold, function update_dataframe_median is used to clean the data (see the documentatio of the latter)
+    '''
     #load data
     y,X,ids=ld.load_csv_data("./train.csv")
     test_y,test_X,test_ids=ld.load_csv_data("./test.csv")

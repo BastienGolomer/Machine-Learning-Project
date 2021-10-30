@@ -4,19 +4,20 @@ from grad_functions import *
 
 ## REGRESSION FUNCTIONS
     
-# Least squares regression, using normal equations :
 def least_squares(y, tx, loss_function = mse):
+    ''' Least squares regression, using normal equations '''
+
     a = tx.T.dot(tx)
     b = tx.T.dot(y)
     w = np.linalg.solve(a,b)
     loss = loss_function(y, tx, w)
     return w, loss
   
-# Least squares regression, using gradient descent :
 def least_square_GD(y, tx, initial_w, max_iters, gamma, loss_function = mse, gradient = calc_gradient):
+    ''' Least squares regression, using gradient descent '''
     w = initial_w
     for iteration in range(max_iters):
-        
+
         # compute gradient
         grad = gradient(y, tx, w)  
 
@@ -26,8 +27,8 @@ def least_square_GD(y, tx, initial_w, max_iters, gamma, loss_function = mse, gra
     loss = loss_function(y, tx, w)
     return w, loss
   
-# Least squares regression using stochastic gradient descent :
 def least_squares_SGD(y, tx, initial_w, max_iters, gamma, loss_function = mse, gradient = calc_stoch_gradient): 
+    ''' Least squares regression using stochastic gradient descent '''
     N = len(tx) # max number of x_n
     w = initial_w
     for iteration in range(max_iters):
@@ -43,21 +44,22 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma, loss_function = mse, g
     loss = loss_function(y, xn, w)       
     return w, loss
 
-# Ridge regression using normal equations :
 def ridge_regression(y, tx, lambda_, loss_function = mse):
-    
+    ''' Ridge regression using normal equations '''
+
     aI = 2 * tx.shape[0] * lambda_ * np.identity(tx.shape[1])
     a = tx.T.dot(tx) + aI
     b = tx.T.dot(y)
     w = np.linalg.solve(a, b)
     return w, loss_function(y, tx, w)
 
-# Logistic regression using gradient descent or SGD :
 def logistic_regression(y, tx, initial_w, max_iters, gamma):
+    ''' Logistic regression using gradient descent or SGD '''
     return least_squares_SGD(y, tx, initial_w, max_iters, gamma, loss_function = log_loss, gradient = log_gradient)
 
-# Regularized logistic regression using gradient descent or SGD :
 def reg_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
+    ''' Regularized logistic regression using gradient descent or SGD '''
+
     w = initial_w
     for iteration in range(max_iters):
         # Compute gradient 

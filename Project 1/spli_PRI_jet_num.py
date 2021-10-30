@@ -7,6 +7,15 @@ import loading as ld
 
 
 def split():
+    ''' 
+    This function splits the train data into four subgroups depending on a key value of the data set : PRI_jet_num
+    This allows to reduce the number of columns treated in the computation and obtain better, more specialised model for each subgroup.
+    A K-fold is run as well for optimisation.
+    
+    Output = 
+    - loss : the loss computed
+    - yhat : predicted response variable using K-fold and our split'''
+    
     y,X,ids=ld.load_csv_data("./train.csv")
     test_y,test_X,test_ids=ld.load_csv_data("./test.csv")
     X=np.c_[y,X]

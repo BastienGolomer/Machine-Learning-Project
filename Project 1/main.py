@@ -17,7 +17,7 @@ new_X = np.delete(X, indices_to_delete, axis=1)
 new_X = np.delete(new_X,0,axis=1)
 new_y = np.delete(y, indices_to_delete, axis=0)
 
-np.delete(labels,[0,1]) # to keep the relevant headers for the features in X
+labels = np.delete(labels,[0,1]) # to keep the relevant headers for the features in X
 
 
 [k_fold_w, loss] = KF.K_fold(new_X, new_y)
