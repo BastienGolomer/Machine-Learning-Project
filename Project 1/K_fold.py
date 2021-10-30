@@ -2,6 +2,7 @@ import numpy as np
 import loading as ld
 from implementations import *
 from loss_functions import *
+from confusion_matrix import *
 
 #get X and y from a train set that is not split in a validation set, as well as the parameter K to do a k-fold validation
 #the function split the data in datasets useable for the K-fold 
@@ -67,14 +68,18 @@ def run_K_fold(K):
     y,X,ids=ld.load_csv_data("./train.csv")
     test_y,test_X,test_ids=ld.load_csv_data("./test.csv")
     #data treatment
+    X=np.c_[y,X]
     X=ld.update_dataframe_median(X)
-    y=ld.update_dataframe_median(y)
     test_X=ld.update_dataframe_median(test_X)
     #compute weights
-    w=K_fold(X,y,K)
+    w=K_fold(X[:,1:],X[:,0],K)
     #make predictions
     y_hat=test_X.dot(w[0])
     #output the prediction
-    ld.write_csv(test_X[:,0],y_hat,'output_ridge.csv')
+    A=test_X[:,0].astype(int)
+    B=np.where(y_hat<0,-1,1)
+    ld.write_csv(A,B,'output_ridge.csv')
+    print (compute_confusion_matrix(y, X[:,1:].dot(w[0])))
+    print(w[1])
     return
-run_K_fold(15)
+run_K_fold(5)
