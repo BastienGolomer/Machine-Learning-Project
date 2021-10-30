@@ -7,14 +7,14 @@ from loss_functions import *
 def calc_gradient(y, tx, w):
     ''' Computes the regular gradient '''
     e = y - tx.dot(w)
-    grad = -tx.T.dot(e)/len(e)
+    grad = - 1.0/y.shape[0] * tx.T.dot(e)
     return grad
   
 # Logistic gradient
 def log_gradient(y, tx, w):
     ''' Computes the gradient using a sigmoid function'''
     e = sigmoid(tx.dot(w)) - y
-    grad = tx.T.dot(e)/len(e)
+    grad = 1.0/y.shape[0] * tx.T.dot(e)
     return grad
   
 # Sigmoid gradient
