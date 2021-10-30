@@ -11,7 +11,7 @@ def build_poly(x, degree):
     poly = np.ones((len(x), 1))
     for deg in range(1, degree+1):
         poly = np.c_[poly, np.power(x, deg)]
-    return poly
+    return np.delete(poly, 0, axis = 1)
 
 
 ## Augments the features by adding cross-terms and polynomial expand
