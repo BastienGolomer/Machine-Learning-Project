@@ -10,7 +10,6 @@ def split():
     y,X,ids=ld.load_csv_data("./train.csv")
     test_y,test_X,test_ids=ld.load_csv_data("./test.csv")
     X=np.c_[y,X]
-    a=np.linspace(1,len(test_X[:,1]),len(test_X[:,1]))
     #test_x=np.c_[a,test_X]
     # Data processing : getting rid of the columns which have "-999" values
     new_X = X.copy()
@@ -22,12 +21,12 @@ def split():
     new_PRI_jet_num_2 = splity_split_yo(new_X,2)
     new_PRI_jet_num_3 = splity_split_yo(new_X,3)
     
-    #print(new_PRI_jet_num_0[:,0].shape, new_PRI_jet_num_0[:,1:].shape)
+    #train and compute weights using K-fold for every number of pri jet
     PRI0=K_fold(new_PRI_jet_num_0[:,0],new_PRI_jet_num_0[:,1:])
     PRI1=K_fold(new_PRI_jet_num_1[:,0],new_PRI_jet_num_1[:,1:])
     PRI2=K_fold(new_PRI_jet_num_2[:,0],new_PRI_jet_num_2[:,1:])
     PRI3=K_fold(new_PRI_jet_num_3[:,0],new_PRI_jet_num_3[:,1:])
-    #split for test
+    #make treatment on test data and make prediction using the traitements_test_sets() data
     ychap0=traitements_test_set(0,test_X,PRI0[0])
     ychap1=traitements_test_set(1,test_X,PRI1[0])
     ychap2=traitements_test_set(2,test_X,PRI2[0])
@@ -52,10 +51,13 @@ def split():
 
 
 def traitements_test_set(i, test_X,w):
+    #split according to the PRI 
     PRI_test = splity_split_yo(test_X,i)
     wtest=[]
     wtest.extend(w)
+    #computes the prediction
     yshapoaud=PRI_test.dot(wtest)
+    #adds an id column to be able to put them back in the right order
     yshapoaud=np.c_[PRI_test[:,0],yshapoaud]
     
     return yshapoaud
