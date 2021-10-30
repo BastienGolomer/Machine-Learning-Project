@@ -2,14 +2,14 @@ import numpy as np
 
 ## SIGMOID
 def sigmoid(x):
-    return 1/(1 + np.exp(-x))
+    return 1.0/(1.0 + np.exp(-x))
 
 ## THE LOSS FUNCTIONS
 
 # Mean-squared error
 def mse(y, tx, w):
     e = y - tx.dot(w) # compute the error vector
-    return np.mean(e**2)/2
+    return np.mean(e**2.0)/2.0
 
 # Mean-absolute error
 def mae(y, tx, w):
@@ -22,4 +22,4 @@ def rmse(y, tx, w):
 
 # Logistic loss
 def log_loss(y, tx, w):
-    return np.sum(y * np.log(sigmoid(tx.dot(w))) + (1 - y) * np.log(1 - sigmoid(tx.dot(w))))/len(y)
+    return np.sum(y * np.log(sigmoid(tx.dot(w))) + (1.0 - y) * np.log(1.0 - sigmoid(tx.dot(w))))/len(y)
