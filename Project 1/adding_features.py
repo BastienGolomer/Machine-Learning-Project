@@ -27,20 +27,5 @@ def add_features(X, degree):
     for i in range(top):
         for j in range(i+1, top):
             y.append((X[:,i] * X[:,j]).reshape(-1, 1)) 
-            
-    
-    return np.concatenate(to_concatenate, axis=1)
-
-'''def polynomial_regression(degree):
-    """Constructing the polynomial basis function expansion of the data,
-       and then running least squares regression."""
-    # define parameters
-    degrees = list(range(1, degree + 1))
-    
-    for ind, degree in enumerate(degrees):
-        # form dataset to do polynomial regression.
-        tx = build_poly(x, degree)
-
-        # compute RMSE
-        rmse = np.sqrt(2 * mse)
-'''
+                
+    return np.concatenate(y, axis=1)
