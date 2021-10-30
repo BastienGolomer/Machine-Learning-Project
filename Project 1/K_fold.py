@@ -6,20 +6,20 @@ from confusion_matrix import *
 
 
 #
-def K_fold_split(X, y, K):
+def K_fold_split(y, X_train,  K):
     ''' 
     Inputs = 
-    - X : array of features
+    - X_train : array of features
     - y : array of response variables
     - K : number of subsets desired for the K-fold
     Outputs = 
     - X_train,Y_train,X_validate,Y_validate : subsets used for the k fold
 
     This function splits the data in datasets useable for the K-fold  
-    get X and y from a train set that is not split in a validation set, as well as the parameter K to do a k-fold validation'''
+    get X_train and y from a train set that is not split in a validation set, as well as the parameter K to do a k-fold validation'''
 
-    #split X and y into K pieces
-    pieces=np.array_split(X, K, axis=0)
+    #split X_train and y into K pieces
+    pieces=np.array_split(X_train, K, axis=0)
     ypieces=np.array_split(y, K)
     #creates list where each fold (case of data being split) will be stored =>(each of size K)
     X_train=[]
@@ -27,62 +27,66 @@ def K_fold_split(X, y, K):
     X_validate=[]
     Y_validate=[]
     for i in range (0,K):
-        #the validation set consist of one of the K pieces, the append function adds a matrix element of size (lenght(X[:,0])/K,predictors)
+        #the validation set consist of one of the K pieces, the append function adds a matrix element of size (lenght(X_train[:,0])/K,predictors)
         X_validate.append(pieces[i])
         Y_validate.append(ypieces[i])
         #putting the K-1 pieces back together in a single matrix was a bit tricky, use of np.vstack
         #also couldn't find how to initialyse the np.array to nothing so started with an array of zeros and it is ignored after the j for loop  
-        temp=np.zeros(len(X[0,:]))
+        w_temp=np.zeros(len(X_train[0,:]))
         ytemp=np.zeros(1)
         for j in range (0,K):
             #the if condition verifies that the validation set taken is not in the train set as well
             if j!=i:
-                temp=np.vstack((temp,pieces[j]))
+                w_temp=np.vstack((w_temp,pieces[j]))
                 ytemp=np.concatenate((ytemp,ypieces[j]), axis= None)
         #the train set for this K are added to the list
-        X_train.append(temp[1:,:])
+        X_train.append(w_temp[1:,:])
         Y_train.append(ytemp[1:]) 
     #4 list are returned, each of them of length K, and the 4 elements[k] of the lists are to be trained and validated together
     return X_train,Y_train,X_validate,Y_validate
 
 
-def K_fold(X, y, K = 8):
+def K_fold( y, X_train, K = 10):
     ''' 
     Inputs = 
-    - X : array of features
+    - X_train : array of features
     - y : array of response variables
     - K : number of subsets desired for the K-fold
     Outputs = 
     - [wtemp, loss] : weights and loss computed with the K-fold
 
-    This function get X and y from a train set that is not split in a validation set, as well as the parameter K to do a k-fold validation
+    This function get X_train and y from a train set that is not split in a validation set, as well as the parameter K to do a k-fold validation
     The function calls upon K_fold_split to get data in the right shape and perform the K-fold '''
 
     #gets data from K_Fold_split
-    trainx,trainy,valx,valy=K_fold_split(X, y, K)
-    w=[]
+    trainx,trainy,valx,valy=K_fold_split(y, X_train, K)
+
+    # prepare storage
+    w_K_fold=[]
     losses=[]
+
     for i in range (0,K):
-        #trains the data from the ith fold to get weights, the function always return the loss (temp[1]), but it is not the one that interest us
+        #trains the data from the ith fold to get weights, the function always return the loss (w_temp[1]), but it is not the one that interest us
         # as it has been used to train the data and an overfit would give a loss smaller than it will be on test 
         
-        
-        n = len(trainx[i])
-        # temp=ridge_regression(trainy[i],trainx[i],1.1)
-        # temp = least_squares_SGD(trainy[i],trainx[i], np.random.rand(trainx[i].shape[1]),100,0.1)
-        temp = reg_logistic_regression(trainy[i],trainx[i],0.1,np.random.rand(trainx[i].shape[1]),100,0.1)
+        size_w = trainx[i].shape[1]
+        # w_temp=ridge_regression(trainy[i],trainx[i],1.1)
+        # w_temp = least_squares_SGD(trainy[i],trainx[i], np.random.rand(trainx[i].shape[1]),100,0.1)
+        [w_temp, loss] = reg_logistic_regression(trainy[i],trainx[i],0.1,np.random.rand(size_w),100,0.1)
 
-        w.append(temp[0])
-        #we compute the true loss using the ith validate set that has not been used to train the data 
-        losses.append(mse(valy[i],valx[i],temp[0]))
+        w_K_fold.append(w_temp)
+
+        # we compute the true loss using the ith validate set that has not been used to train the data 
+        losses.append(mse(valy[i],valx[i],w_temp[0]))
+
     #compute the mean of the K losses and weight vectors that we have just computed to get the weights that have been trained on the whole dataset
-    loss=1/K*sum(losses)
-    w=np.array(w)
+    loss_validation=1/K*sum(losses)
+    w_K_fold=np.array(w_K_fold)
     wtemp=[]
-    for i in range(0,len(w[0,:])):
-        wtemp.append(1/K*sum(w[:,i]))
-    #return the loss and weight vectors that have been traine on the FULL X that we had at start.
-    return [wtemp, loss]
+    for i in range(0,len(w_K_fold[0,:])):
+        wtemp.append(1/K*sum(w_K_fold[:,i]))
+    #return the loss and weight vectors that have been traine on the FULL X_train that we had at start.
+    return [wtemp, loss_validation]
 
 #ridge :0.16899386241189956 gamma=1.1
 #least square 0.17846086928048066
@@ -90,28 +94,22 @@ def K_fold(X, y, K = 8):
 #reg_log gamma 0.00001 lambda_ 0.4 iter 50
 
 #run K fold directly from this file    
-def run_K_fold(K):
-    '''Input = K : number of subsets asked for the K-fold
-    Output = creates a csv file using write_csv file (see the documentation on the latter) 
+def run_K_fold(y,X_train, K):
+    '''
+    Input = K : number of subsets asked for the K-fold
+    Output = creates a csv file using write_csv file (see the documentation of the latter) 
     
     This function performs a K-fold on the train test to directly validate on the test set.
     Before it calls functions K_fold, function update_dataframe_median is used to clean the data (see the documentatio of the latter)
     '''
-    #load data
-    y,X,ids=ld.load_csv_data("./train.csv")
-    test_y,test_X,test_ids=ld.load_csv_data("./test.csv")
-    #data treatment
-    X=np.c_[y,X]
-    X=ld.update_dataframe_median(X)
-    test_X=ld.update_dataframe_median(test_X)
+
+    # data treatment, see documentation on update_dataframe_median
+    X_train=ld.update_dataframe_median(X_train)
+
     #compute weights
-    w=K_fold(X[:,1:],X[:,0],K)
-    #make predictions
-    y_hat=test_X.dot(w[0])
-    #output the prediction
-    A=test_X[:,0].astype(int)
-    B=np.where(y_hat<0,-1,1)
-    ld.write_csv(A,B,'output_ridge.csv')
-    print (compute_confusion_matrix(y, X[:,1:].dot(w[0])))
-    return
-run_K_fold(10)
+    [w_K_fold, loss_validation]=K_fold(y, X_train,K)
+
+    # # print the confusion matrix
+    # print (compute_confusion_matrix(y, X_train[:,1:].dot(w_K_fold[0])))
+
+    return [w_K_fold, loss_validation]
