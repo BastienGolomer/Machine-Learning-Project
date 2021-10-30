@@ -1,0 +1,29 @@
+# w_temp, loss = imp.least_squares(y_train, X_train)
+[[10888.  5503.]
+ [ 1591.  7018.]]
+0.14370275279615158
+
+# w_temp, loss = imp.least_square_GD(y_train,X_train,np.ones(n)/10,100,0.1)
+[[10958.  5433.]
+ [ 1663.  6946.]]
+0.14419139960151808
+
+# w_temp, loss = imp.least_squares_SGD(y_train,X_train,np.ones(n)/10,100,0.3)
+[[8745. 7646.]
+ [4078. 4531.]]
+3.9786410068230064e+40
+
+# w_temp, loss = imp.ridge_regression(y_train,X_train,1.1)
+[[11197.  5194.]
+ [ 2266.  6343.]]
+0.15412070019526283
+
+# w_temp, loss = imp.logistic_regression(y_train,X_train,np.ones(n)/10,100,1.1)
+[[9820. 6571.]
+ [4429. 4180.]]
+nan
+
+# w_temp, loss = imp.reg_logistic_regression(y_train,X_train,0.1,np.ones(n)/10,100,0.1)
+[[11596.  4795.]
+ [ 3895.  4714.]]
+nan
