@@ -6,11 +6,22 @@ import loading as ld
 import implementations as imp
 import confusion_matrix as conf
 import RegressionSelection as RS
+import K_fold as KF
 
 y, X, labels = ld.load_csv_data('./train.csv')
-new_X = ld.update_dataframe_median(X)
-print(X)
-print(new_X)
+
+Id = X[:,0]
+
+indices_to_delete = np.where(X == -999)[1]
+new_X = np.delete(X, indices_to_delete, axis=1)
+new_X = np.delete(new_X,0,axis=1)
+new_y = np.delete(y, indices_to_delete, axis=0)
+
+np.delete(labels,[0,1]) # to keep the relevant headers for the features in X
+
+
+[k_fold_w, loss] = KF.K_fold(new_X, new_y)
+print(loss)
 # bestyhat, [Id, bestW] , best, y_validate, indices_to_delete = RS.RegressionSelection('./train.csv')
 # y_test, X_test, labels = ld.load_csv_data('C:/Users/basti/Documents/EPFL/Master/MA3/ML/test.csv')
 # print(y_test)

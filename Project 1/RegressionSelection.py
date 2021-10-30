@@ -16,7 +16,7 @@ def RegressionSelection(csv_filepath) :
     new_X = np.delete(new_X,0,axis=1)
     new_y = np.delete(y, indices_to_delete, axis=0)
 
-    np.delete(labels,[0,1]) # to keep the relevant headers for the features in X
+    labels = np.delete(labels,[0,1]) # to keep the relevant headers for the features in X
 
     # split the train.csv into a training set and a validation set
     X_train, X_validate = np.split(new_X,[int(.9*len(new_X))])
@@ -35,8 +35,11 @@ def RegressionSelection(csv_filepath) :
 
 
     for j in range(len(methods)-1):
+
         w=eval(evals[j])
         yhat=X_validate.dot(w[0])
+
+
         count= 0
         for i in range (0,len(yhat)):
             if yhat[i]>0:
