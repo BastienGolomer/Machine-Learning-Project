@@ -27,22 +27,28 @@ def least_square_GD(y, tx, initial_w, max_iters, gamma, loss_function = mse, gra
     loss = loss_function(y, tx, w)
     return w, loss
   
-def least_squares_SGD(y, tx, initial_w, max_iters, gamma, loss_function = mse, gradient = calc_stoch_gradient): 
+def least_squares_SGD(y, tx, initial_w,  max_iters, gamma, loss_function = mse, gradient = calc_stoch_gradient): 
     ''' Least squares regression using stochastic gradient descent '''
-    N = len(tx) # max number of x_n
-    w = initial_w
+    N = tx.shape[1] # max number of x_n
+    w_t = initial_w
+    losses = []
+    
+
     for iteration in range(max_iters):
         # randomly select a datapoint
-        n = np.random.randint(0, N-1)  
-        xn = tx[n,:]
+        n = np.random.randint(0, N)  
+        xn = tx[n]
         yn = y[n]
         # compute gradient
-        grad = gradient(yn, xn, w)
+        grad = gradient(yn, xn, w_t)
         # compute and update y
-        w = w - gamma * grad
+        w_t = w_t - gamma * grad
+        losses.append(loss_function(yn, xn, w_t))
+    
+    loss = 1.0/N*sum(losses)
+
         
-    loss = loss_function(y, xn, w)       
-    return w, loss
+    return w_t, loss
 
 def ridge_regression(y, tx, lambda_, loss_function = mse):
     ''' Ridge regression using normal equations '''

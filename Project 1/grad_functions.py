@@ -27,6 +27,7 @@ def calc_gradient_sigm(y, tx, w):
 # Stochastic gradient
 def calc_stoch_gradient(y, tx, w):
     ''' Computes the stochastic gradient'''
+
     e = y - tx.dot(w)
-    grad = - tx.T.dot(e)/len(e)
+    grad = - tx.T.dot(e)
     return grad

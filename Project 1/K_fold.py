@@ -65,7 +65,13 @@ def K_fold(X, y, K = 8):
     for i in range (0,K):
         #trains the data from the ith fold to get weights, the function always return the loss (temp[1]), but it is not the one that interest us
         # as it has been used to train the data and an overfit would give a loss smaller than it will be on test 
-        temp=ridge_regression(trainy[i],trainx[i],1.1)
+        
+        
+        n = len(trainx[i])
+        # temp=ridge_regression(trainy[i],trainx[i],1.1)
+        # temp = least_squares_SGD(trainy[i],trainx[i], np.random.rand(trainx[i].shape[1]),100,0.1)
+        temp = reg_logistic_regression(trainy[i],trainx[i],0.1,np.random.rand(trainx[i].shape[1]),100,0.1)
+
         w.append(temp[0])
         #we compute the true loss using the ith validate set that has not been used to train the data 
         losses.append(mse(valy[i],valx[i],temp[0]))
@@ -107,6 +113,5 @@ def run_K_fold(K):
     B=np.where(y_hat<0,-1,1)
     ld.write_csv(A,B,'output_ridge.csv')
     print (compute_confusion_matrix(y, X[:,1:].dot(w[0])))
-    print(w[1])
     return
-run_K_fold(5)
+run_K_fold(10)
