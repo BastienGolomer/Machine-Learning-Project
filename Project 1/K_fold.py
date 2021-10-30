@@ -67,9 +67,9 @@ def run_K_fold(K):
     y,X,ids=ld.load_csv_data("./train.csv")
     test_y,test_X,test_ids=ld.load_csv_data("./test.csv")
     #data treatment
-    X=update_dataframe_median(X)
-    y=update_dataframe_median(y)
-    test_X=update_dataframe_median(test_X)
+    X=ld.update_dataframe_median(X)
+    y=ld.update_dataframe_median(y)
+    test_X=ld.update_dataframe_median(test_X)
     #compute weights
     w=K_fold(X,y,K)
     #make predictions
