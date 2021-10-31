@@ -71,7 +71,7 @@ def split_PRI_jet_num(X, Ids, i):
     # Merge Ids and data to keep only the relevant Ids
     X = np.c_[Ids, X]
 
-    # -8 is the positio of the column PRI_jet_num
+    # -8 is the position of the column PRI_jet_num
     column_PJNum = X[:,-8] # element of the column PRI_jet_num
     PRI_jet_num_i = X[:][column_PJNum == i]
 

@@ -15,17 +15,49 @@ def build_poly(x, degree):
 
 
 ## Augments the features by adding cross-terms and polynomial expand
-def add_features(X, degree):
+def add_features(X, col,col2):
     new_x = X.copy()
     
     # adding the polynomial terms
-    new_x = build_poly(X, degree)
+    #new_x = build_poly(X, degree)
     
     # adding the cross terms
     top = X.shape[1]
     y = [new_x]
-    for i in range(top):
-        for j in range(i+1, top):
-            y.append((X[:,i] * X[:,j]).reshape(-1, 1)) 
+    y.append((X[:,col2] * X[:,col]).reshape(-1, 1)) 
                 
     return np.concatenate(y, axis=1)
+
+
+def add_col(X, col,col2):
+    new_x = X.copy()
+    top = X.shape[1]
+    y = [new_x]
+    y.append((X[:,col2] * X[:,col]).reshape(-1, 1))           
+    return np.concatenate(y, axis=1)
+
+
+def add_dim(dim,new_X,y,loss_validation):
+    #will iter dim times adding a column of cross terms (can be the same column-> polynomial)
+    for k in range(dim):
+        keepi=[0,-1,-1]
+        #iters on all the combinations of columns (~30*30)
+        for i in range (X.shape[1]-1):
+            for j in range (i,X.shape[1]-1):
+                #adds a column then train, make pred compute the loss on validate and compare this loss to the other candidates 
+                Xtemp=af.add_col(new_X, i,j)
+                X_train, X_validate = np.split(Xtemp,[int(.7*len(X))])
+                y_train, y_validate = np.split(y,[int(.7*len(y))])
+                [w, loss_] = ridge_regression(y_train, X_train,0.4)
+                loss_v=(mse(y_validate,X_validate,w))
+                #compare the loss
+                if (keepi[0]<(loss_validation-loss_v)):
+                    keepi=[loss_validation-loss_v,i,j]
+        #adds the column who has the strongest loss decrease
+        new_X=add_col(new_X,keepi[1],keepi[2])
+        X_train, X_validate = np.split(new_X,[int(.7*len(X))])
+        y_train, y_validate = np.split(y,[int(.7*len(y))])
+        #fits a new model and compute new loss
+        [w_final, loss_validation] = ridge_regression(y_train, X_train,0.4)
+        losses=(mse(y_validate,X_validate,w_final))
+    return new_X

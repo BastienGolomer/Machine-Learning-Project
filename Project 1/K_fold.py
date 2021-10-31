@@ -72,7 +72,7 @@ def K_fold( y, X_train, K = 10):
         size_w = trainx[i].shape[1]
         # w_temp=ridge_regression(trainy[i],trainx[i],1.1)
         # w_temp = least_squares_SGD(trainy[i],trainx[i], np.random.rand(trainx[i].shape[1]),100,0.1)
-        [w_temp, loss] = reg_logistic_regression(trainy[i],trainx[i],0.1,np.random.rand(size_w),100,0.1)
+        [w_temp, loss] = reg_logistic_regression(trainy[i],trainx[i],0.1,np.random.rand(size_w),100,0.0001)
 
         w_K_fold.append(w_temp)
 
@@ -110,6 +110,6 @@ def run_K_fold(y,X_train, K):
     [w_K_fold, loss_validation]=K_fold(y, X_train,K)
 
     # # print the confusion matrix
-    # print (compute_confusion_matrix(y, X_train[:,1:].dot(w_K_fold[0])))
+    print (compute_confusion_matrix(y, X_train[:,1:].dot(w_K_fold[0])))
 
     return [w_K_fold, loss_validation]
