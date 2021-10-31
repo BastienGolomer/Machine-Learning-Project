@@ -66,6 +66,6 @@ def add_dim(y,new_X,dim):
         y_train, y_validate = np.split(y,[int(.7*len(y))])
         #fits a new model and compute new loss
         [w_final, loss_validation] = ridge_regression(y_train, X_train,0.4)
-        losses=(mse(y_validate,X_validate,w_final))
-        print (keepi[1],keepi[2],losses)
+        loss_validation=(mse(y_validate,X_validate,w_final))
+        print (keepi[1],keepi[2],loss_validation)
     return new_X
