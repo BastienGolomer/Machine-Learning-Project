@@ -1,6 +1,6 @@
 README:
 
-This folder contains the first project of machine learning CS-433. In this project the objective was to classify data from the CERN between Higgs boson and not Higgs using nothing but the numpy library to classify the data. The test dataset does not have the true answer and an output file has to be submitted to "https://www.aicrowd.com/challenges/epfl-machine-learning-higgs/submissions/new" to have a classification score.
+This folder contains the first project of machine learning CS-433. In this project the objective is to classify data from the CERN between Higgs boson and not Higgs using only the numpy library to classify the data as well as a training dataset. The test dataset does not have the true answer and an output file has to be submitted to "https://www.aicrowd.com/challenges/epfl-machine-learning-higgs/submissions/new" to have a classification score.
 
 For more in depth detail there is a report of what methods were used and why .
 
