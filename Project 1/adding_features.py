@@ -1,5 +1,6 @@
 import numpy as np
 from implementations import *
+from loss_functions import *
 
 ## We consider that the relationship between the features is more complex than a simple linear relationship. To deal with this complexity
 ## and to avoid underfitting, we add cross-terms and polynomial expanding.
@@ -59,9 +60,11 @@ def add_dim(y,new_X,loss_validation,dim):
                     keepi=[loss_validation-loss_v,i,j]
         #adds the column who has the strongest loss decrease
         new_X=add_col(new_X,keepi[1],keepi[2])
+        
         X_train, X_validate = np.split(new_X,[int(.7*len(new_X))])
         y_train, y_validate = np.split(y,[int(.7*len(y))])
         #fits a new model and compute new loss
         [w_final, loss_validation] = ridge_regression(y_train, X_train,0.4)
         losses=(mse(y_validate,X_validate,w_final))
+        print (keepi[1],keepi[2],losses)
     return new_X

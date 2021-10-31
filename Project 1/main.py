@@ -5,9 +5,10 @@ import random
 import loading as ld
 import K_fold as KF
 import adding_features as af
-from implementations import *
+import implementations as imp
 import split_fit as sf
 from confusion_matrix import *
+from loss_functions import *
 
 
 # methods that can be used as regressions
@@ -33,13 +34,13 @@ labels = np.delete(labels,[0,1])
 X_train, X_validate = np.split(new_X,[int(.7*len(X))])
 y_train, y_validate = np.split(y,[int(.7*len(y))])
 
-"""
+
 # ============================ might be incompatible with the next block(noKfold) ==================================================
 # Now add dimensions in the form of multiplication of two columns at a time and take the one that minimizes the loss
-[w_final, loss_validation] = ridge_regression(y_train, X_train,0.4)
+[w_final, loss_validation] = imp.ridge_regression(y_train, X_train,0.4)
 losses=(mse(y_validate,X_validate,w_final))
 #function adding columns
-new_X=af.add_dim(y,new_X,losses,10 )
+new_X=af.add_dim(y,new_X,losses,9 )
 
 X_train, X_validate = np.split(new_X,[int(.7*len(X))])
 y_train, y_validate = np.split(y,[int(.7*len(y))])
@@ -47,7 +48,7 @@ y_train, y_validate = np.split(y,[int(.7*len(y))])
 [w_final, loss_validation] = KF.run_K_fold(y_train, X_train,7)
 y_hat_val=X_train.dot(w_final)
 
-print(cm.compute_confusion_matrix(y_validate,y_hat_val))
+print(compute_confusion_matrix(y_validate,y_hat_val))
 print(loss_validation)
 """
 
@@ -72,7 +73,7 @@ w_temp, loss = imp.logistic_regression(y_train,X_train,np.ones(n)/10,100,0.1)
 # w_temp, loss = imp.reg_logistic_regression(y_train,X_train,0.1,np.ones(n)/10,100,1.1)
 print(compute_confusion_matrix(y_validate, X_validate.dot(w_temp)))
 print(loss)
-
+"""
 
 # ================ Test set =============================================
 # y_test,X_test,test_labels=ld.load_csv_data("./test.csv")

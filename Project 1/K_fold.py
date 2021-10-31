@@ -74,12 +74,6 @@ def K_fold( y, X_train, K = 10):
         # as it has been used to train the data and an overfit would give a loss smaller than it will be on test 
         
         size_w = trainx[i].shape[1]
-<<<<<<< HEAD
-        # w_temp=ridge_regression(trainy[i],trainx[i],1.1)
-        # w_temp = least_squares_SGD(trainy[i],trainx[i], np.random.rand(trainx[i].shape[1]),100,0.1)
-        [w_temp, loss] = reg_logistic_regression(trainy[i],trainx[i],0.1,np.random.rand(size_w),100,0.0001)
-=======
->>>>>>> 3af170037ec526ffd4c27dab6b2222864b769ee0
 
         # [w_temp, loss] = least_squares(trainy[i], trainx[i])
         [w_temp, loss]=ridge_regression(trainy[i],trainx[i],1.1)
@@ -124,12 +118,7 @@ def run_K_fold(y,X_train, K):
     #compute weights
     w_K_fold, loss_validation, y_validation, X_validation=K_fold(y, X_train,K)
 
-<<<<<<< HEAD
-    # # print the confusion matrix
-    print (compute_confusion_matrix(y, X_train[:,1:].dot(w_K_fold[0])))
-=======
     # print the confusion matrix
-    print (compute_confusion_matrix(y_validation, X_validation.dot(w_K_fold)))
->>>>>>> 3af170037ec526ffd4c27dab6b2222864b769ee0
+    #print (compute_confusion_matrix(y_validation, X_validation.dot(w_K_fold)))
 
     return w_K_fold, loss_validation
