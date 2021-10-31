@@ -22,4 +22,4 @@ def rmse(y, tx, w):
 
 # Logistic loss
 def log_loss(y, tx, w):
-    return np.sum(y * np.log(sigmoid(tx.dot(w))) + (1.0 - y) * np.log(1.0 - sigmoid(tx.dot(w))))/len(y)
+    return np.sum(y * np.log(sigmoid(tx.dot(w))) + (1.0 - y) * np.log(1.0 - sigmoid(tx.dot(w))))
