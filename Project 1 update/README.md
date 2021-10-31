@@ -5,11 +5,11 @@ This folder contains the first project of machine learning CS-433. In this proje
 For more in depth detail there is a report of what methods were used and why .
 
 This folder should contain 6 .py files :features, gradientloss_funcions, preprocessData, proj1_helpers and run.
-There sould also be a train.csv and a test.csv file, as well as an empty file to fill with the predictions called output.csv
+There sould also be a train.csv and a test.csv file, as well as an __empty file: output.csv__ to fill with the predictions
 
 /!\ If this output.csv is not created before running the code nothing will be filled and there won't be an output file.
 
-To run the project one needs to call on run.py (using python) that will execute everything if the 3 .csv files are present in the same folder.
+To run the project one needs to __call run.py__ (using python) that will execute everything if the 3 .csv files are present __in the same folder__.
 
 code architecture:
 
