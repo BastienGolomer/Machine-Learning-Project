@@ -76,7 +76,7 @@ def K_fold( y, X_train, K = 10):
         size_w = trainx[i].shape[1]
 
         # [w_temp, loss] = least_squares(trainy[i], trainx[i])
-        [w_temp, loss]=ridge_regression(trainy[i],trainx[i],1.1)
+        [w_temp, loss]=reg_logistic_regression(trainy[i],trainx[i],0.4,np.zeros(size_w),50,0.0000001)
         # [w_temp, loss] = least_squares_SGD(trainy[i],trainx[i], np.random.rand(trainx[i].shape[1]),100,0.1)
         # [w_temp, loss] = reg_logistic_regression(trainy[i],trainx[i],0.1,np.random.rand(size_w),100,0.1)
 

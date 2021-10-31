@@ -40,15 +40,24 @@ y_train, y_validate = np.split(y,[int(.7*len(y))])
 [w_final, loss_validation] = imp.ridge_regression(y_train, X_train,0.4)
 losses=(mse(y_validate,X_validate,w_final))
 #function adding columns
-new_X=af.add_dim(y,new_X,losses,9 )
+new_X=af.add_dim(y,new_X,losses,5 )
 
-X_train, X_validate = np.split(new_X,[int(.7*len(X))])
-y_train, y_validate = np.split(y,[int(.7*len(y))])
+X_train, X_validate = np.split(new_X,[int(.8*len(X))])
+y_train, y_validate = np.split(y,[int(.8*len(y))])
 
 [w_final, loss_validation] = KF.run_K_fold(y_train, X_train,7)
-y_hat_val=X_train.dot(w_final)
-
-print(compute_confusion_matrix(y_validate,y_hat_val))
+y_hat_val=X_validate.dot(w_final)
+vrai=0
+faux=0
+print(y_validate,y_hat_val)
+y_validate=np.where(y_validate<=0.5,0,1)
+y_hat_val=np.where(y_hat_val<=0.5,0,1)
+for i in range (len(y_hat_val)):
+    if (y_hat_val[i]==y_validate[i]):
+        vrai+=1
+    else:
+        faux+=1
+print(vrai,faux,(vrai/(vrai+faux)))
 print(loss_validation)
 """
 
@@ -73,7 +82,7 @@ w_temp, loss = imp.logistic_regression(y_train,X_train,np.ones(n)/10,100,0.1)
 # w_temp, loss = imp.reg_logistic_regression(y_train,X_train,0.1,np.ones(n)/10,100,1.1)
 print(compute_confusion_matrix(y_validate, X_validate.dot(w_temp)))
 print(loss)
-"""
+""" 
 
 # ================ Test set =============================================
 # y_test,X_test,test_labels=ld.load_csv_data("./test.csv")
