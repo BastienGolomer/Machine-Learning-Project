@@ -36,7 +36,7 @@ labels = np.delete(labels,[0,1])
 
 new_X = ld.standardize_clean_dataframe(new_X)
 print(new_X.max())
-
+new_X=af.add_dim(y,new_X,5 )
 labels = np.delete(labels,[0,1]) # to keep the relevant headers for the features in X
 
 # split the train.csv into a training set and a validation set
@@ -54,7 +54,7 @@ for i in np.logspace(-3,5,1000) :
     # w_temp, loss = imp.least_squares(y_train, X_train) # WORKS
     # w_temp, loss = imp.least_squares_GD(y_train,X_train,np.ones(n)/10,100,0.1) # WORKS
     # w_temp, loss = imp.least_squares_SGD(y_train,X_train,np.ones(n)/10,100,0.3) # WORKS
-    # w_temp, loss = imp.ridge_regression(y_train,X_train,i) # WORKS, optimal hyperparameter = 0.010858585858585859
+    w_temp, loss = imp.ridge_regression(y_train,X_train,i) # WORKS, optimal hyperparameter = 0.010858585858585859
     # w_temp, loss = imp.logistic_regression(y_train,X_train,np.ones(n)/10,100,0.1)
     # w_temp, loss = imp.reg_logistic_regression(y_train,X_train,0.1,np.ones(n)/10,100,1.1)
 

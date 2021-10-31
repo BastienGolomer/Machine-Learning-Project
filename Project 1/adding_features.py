@@ -42,8 +42,10 @@ def add_col(X, col,col2):
     return np.concatenate(y, axis=1)
 
 
-def add_dim(y,new_X,loss_validation,dim):
+def add_dim(y,new_X,dim):
     #will iter dim times adding a column of cross terms (can be the same column-> polynomial)
+    [w, loss_] = ridge_regression(y, new_X, 0.4)
+    loss_validation=loss_
     for k in range(dim):
         keepi=[0,-1,-1]
         #iters on all the combinations of columns (~30*30)
@@ -60,7 +62,6 @@ def add_dim(y,new_X,loss_validation,dim):
                     keepi=[loss_validation-loss_v,i,j]
         #adds the column who has the strongest loss decrease
         new_X=add_col(new_X,keepi[1],keepi[2])
-        
         X_train, X_validate = np.split(new_X,[int(.7*len(new_X))])
         y_train, y_validate = np.split(y,[int(.7*len(y))])
         #fits a new model and compute new loss
