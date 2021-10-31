@@ -16,17 +16,10 @@ def log_gradient(y, tx, w):
     e = sigmoid(tx.dot(w)) - y
     grad = tx.T.dot(e)
     return grad
-  
-# Sigmoid gradient
-def calc_gradient_sigm(y, tx, w):
-    ''' Computes the gradient using a sigmoid function, normalised'''
-    e = sigmoid(tx.dot(w)) - y
-    grad = tx.T.dot(e)
-    return grad
 
 # Stochastic gradient
-def calc_stoch_gradient(y, tx, w):
+def calc_stoch_gradient(yn, xn, w_t):
     ''' Computes the stochastic gradient'''
-    e = y - tx.dot(w)
-    grad = - tx.T.dot(e)
+    e = yn - xn.dot(w_t)
+    grad = - xn.T.dot(e)
     return grad

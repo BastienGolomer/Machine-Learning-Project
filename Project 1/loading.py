@@ -96,7 +96,6 @@ def standardize_clean_dataframe(X):
         
     Mean = np.mean(dataframe, axis = 0)
     stand_dev = np.std(dataframe, axis = 0)
-
     
     matrix_of_mean = np.full(dataframe.shape, Mean)
     matrix_of_std = np.full(dataframe.shape, stand_dev)

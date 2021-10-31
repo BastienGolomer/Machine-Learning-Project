@@ -12,7 +12,7 @@ def least_squares(y, tx, loss_function = mse):
     loss = loss_function(y, tx, w)
     return w, loss
   
-def least_square_GD(y, tx, initial_w, max_iters, gamma, loss_function = mse, gradient = calc_gradient):
+def least_squares_GD(y, tx, initial_w, max_iters, gamma, loss_function = mse, gradient = calc_gradient):
     ''' Least squares regression, using gradient descent '''
     w = initial_w
     for iteration in range(max_iters):
