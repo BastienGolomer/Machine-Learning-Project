@@ -89,10 +89,6 @@ def split_PRI_jet_num(X, Ids, i):
     X = np.c_[Ids, X]
     # -8 is the position of the column PRI_jet_num
 
-<<<<<<< HEAD
-    # -8 is the position of the column PRI_jet_num
-=======
->>>>>>> 3af170037ec526ffd4c27dab6b2222864b769ee0
     column_PJNum = X[:,-8] # element of the column PRI_jet_num
     PRI_jet_num_i = X[:][column_PJNum == i]
 
