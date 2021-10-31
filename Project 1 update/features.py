@@ -20,16 +20,15 @@ def add_features(X, degree = 4):
     
     # adding the polynomial terms
     new_x = build_poly(X, degree)
-    return new_x
   
-    '''# adding the cross terms
+    # adding the cross terms
     top = X.shape[1]
     y = [new_x]
     for i in range(top):
         for j in range(i+1, top):
             y.append((X[:,i] * X[:,j]).reshape(-1, 1))
                 
-    return np.concatenate(y, axis=1)'''
+    return np.concatenate(y, axis=1)
 
 ## Expand the features taking sine and cosine of values, then doing polynomial expansion :
 def expand_features_angles(X):

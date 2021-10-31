@@ -55,8 +55,16 @@ def ridge_regression(y, tx, lambda_, loss_function = mse):
     return w, loss_function(y, tx, w)
 
 def logistic_regression(y, tx, initial_w, max_iters, gamma):
-    ''' Logistic regression using stochastic gradient descent '''
-    return least_squares_SGD(y, tx, initial_w, max_iters, gamma, loss_function = log_loss, gradient = log_gradient)
+    w = initial_w
+    loss = 0
+    for iteration in range(max_iters):
+        # Compute gradient and loss
+        grad = log_gradient(y, tx, w)
+        loss = log_loss(y, tx, w)
+        
+        # Compute and update w
+        w = w - gamma * grad
+    return w, loss
 
 def reg_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
     ''' Regularized logistic regression using gradient descent or SGD '''
@@ -66,7 +74,7 @@ def reg_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
     for iteration in range(max_iters):
         # Compute gradient  and loss
         grad = log_gradient(y, tx, w) + lambda_ * np.linalg.norm(w)
-        loss = log_loss(y, tx, w) + lambda_ * np.linalg.norm(w)
+        loss = log_loss(y, tx, w) + lambda_ * np.linalg.norm(w)**2
         # Compute and update w :
         w = w - gamma * grad 
     return w, loss/(2 * m)
