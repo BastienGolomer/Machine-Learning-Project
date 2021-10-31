@@ -24,10 +24,15 @@ tx_test = standardize_clean_dataframe(tx_test)
 print(tx.shape)
 print('Learning...')
 # tx = add_features(tx, 2)
+tx_copy=tx.copy()
 tx = expand_features_angles(tx)
+newcol,indexs=add_dim(y,tx_copy,3)
+tx=np.concatenate((tx,newcol),axis=1)
 # tx_test = add_features(tx_test, 2)
 tx_test = expand_features_angles(tx_test)
-print(tx.shape)
+for i in indexs:
+    tx_test=add_col(tx_test,i[0],i[1])
+
 
 # Splitting the data between training and validation
 print('Splitting dataset between training and validation subsets...')
@@ -36,7 +41,7 @@ x_tr, x_val, y_tr, y_val = split_data(tx, y, 0.9)
 # Computing weights using regularized logistic regression :
 print('Calculating result')
 initial_weights = np.zeros(tx.shape[1])
-w, _ = reg_logistic_regression(np.where(y_tr == -1, 0, y_tr), x_tr, 0.3, initial_weights, 100, 1e-6)
+w, _ = reg_logistic_regression(np.where(y_tr == -1, 0, y_tr), x_tr, 0, initial_weights, 100, 1e-6)
 
 # Writing labels
 print('Presenting results')
