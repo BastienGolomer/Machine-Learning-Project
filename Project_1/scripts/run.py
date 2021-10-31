@@ -7,9 +7,9 @@ from proj1_helpers import *
 from features import *
 
 # Writing the paths of our csv files
-data_train_path = './data/train.csv'
-data_test_path = './data/test.csv'
-data_output_path = './data/output.csv'
+data_train_path = '../data/train.csv'
+data_test_path = '../data/test.csv'
+data_output_path = '../data/output.csv'
 
 # Loading data
 print('Loading data...')
