@@ -4,9 +4,11 @@ import matplotlib.pyplot as plt
 import random
 import loading as ld
 import K_fold as KF
-import split_fit as sf
+import adding_features as af
 import implementations as imp
+import split_fit as sf
 from confusion_matrix import *
+from loss_functions import *
 
 
 # methods that can be used as regressions
@@ -66,7 +68,6 @@ print('optimal hyperparameter = ' + str(max_i))
 print('optimal percentage = ' + str(percentage_max))
 w_opt, loss_opt = imp.ridge_regression(y_train,X_train,max_i)
 print(compute_confusion_matrix(y_validate, X_validate.dot(w_temp)))
-
 
 # # ================ Test set =============================================
 # # y_test,X_test,test_labels=ld.load_csv_data("./test.csv")
