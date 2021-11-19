@@ -8,6 +8,7 @@ Papers doing what we are interested in [[Road segmentation Using CNNwith GRU]](h
 Previous projects : [[U-Net]](https://blog.alexandrecarlier.com/projects/unet/)
 
 **Papers**
+- [[U-Net: Convolutional Networks for Biomedical Image Segmentation]](https://arxiv.org/pdf/1505.04597v1.pdf)
 - [[DoubleU-Net: A Deep Convolutional Neural Network for Medical Image Segmentation]](https://ieeexplore.ieee.org/abstract/document/9183321)
 - [[Comparison of Different Convolutional Neural Network Architectures for Satellite Image Segmentation]](https://ieeexplore.ieee.org/abstract/document/8588071)
 

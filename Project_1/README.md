@@ -4,7 +4,7 @@ This folder contains the first project of machine learning CS-433. In this proje
 
 For more in depth details on what methods were used and why, check the report.pdf
 
-This folder should contain two subfolders : scripts and data. The former contains 6 .py files :features, gradientloss_funcions, preprocessData, proj1_helpers and run. The latter contains 3 .csv files : train.csv, test.csv file, as well as an __empty file: output.csv__ to fill with the predictions.
+This folder should contain two subfolders : scripts and data. The former contains 6 .py files :features, gradientloss_funcions, preprocessData, proj1_helpers and run. The latter contains 1 .csv files : an __empty file: output.csv__ to fill with the predictions. This subfolder is the place to download the files __train.csv__ and __test.csv__.
 
 /!\ If this output.csv is not created before running the code nothing will be filled and there won't be an output file. If the output.csv file is missing, please create it.
 
