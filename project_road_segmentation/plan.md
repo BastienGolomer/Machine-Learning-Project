@@ -9,7 +9,9 @@ Previous projects : [[U-Net]](https://blog.alexandrecarlier.com/projects/unet/)
 
 **Papers**
 - [[U-Net: Convolutional Networks for Biomedical Image Segmentation]](https://arxiv.org/pdf/1505.04597v1.pdf)
+repo ! [[Implementation of deep learning framework -- Unet, using Keras]](https://github.com/zhixuhao/unet)
 - [[DoubleU-Net: A Deep Convolutional Neural Network for Medical Image Segmentation]](https://ieeexplore.ieee.org/abstract/document/9183321)
+repo : [[Repo : DoubleU-Net: A Deep Convolutional Neural Network for Medical Image Segmentation]](https://github.com/DebeshJha/2020-CBMS-DoubleU-Net)
 - [[Comparison of Different Convolutional Neural Network Architectures for Satellite Image Segmentation]](https://ieeexplore.ieee.org/abstract/document/8588071)
 
 
@@ -39,8 +41,6 @@ K-fold
 ## 3) CNN
 
 choice to make on the activation function
-
-
 
 To increase performance, Implement : 
 * node Drop Out
